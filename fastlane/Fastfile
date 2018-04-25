@@ -1,0 +1,10 @@
+lane :test do
+  xcodegen
+end
+
+lane :test_params do
+  xcodegen(
+    spec: "/tmp/project.yml",
+    project: "/tmp/Project.xcodeproj"
+  )
+end
