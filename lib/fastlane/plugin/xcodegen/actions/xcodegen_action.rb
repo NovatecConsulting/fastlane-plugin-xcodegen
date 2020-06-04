@@ -17,6 +17,9 @@ module Fastlane
         cmd = ["xcodegen"]
         cmd << "--spec #{params[:spec]}" if params[:spec]
         cmd << "--project #{params[:project]}" if params[:project]
+        cmd << "--quiet" if params[:quiet]
+        cmd << "--use-cache" if params[:use_cache]
+        cmd << "--cache-path #{params[:cache_path]}" if params[:cache_path]
 
         Actions.sh(cmd.join(' '))
       end
@@ -45,6 +48,20 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :project,
                                       env_name: "XCODEGEN_PROJECT",
                                       description: "The path to the folder where the project should be generated",
+                                      optional: true),
+          FastlaneCore::ConfigItem.new(key: :quiet,
+                                      env_name: "XCODEGEN_PROJECT",
+                                      description: "Whether to suppress informational and success messages",
+                                      optional: true,
+                                      is_string: false),
+          FastlaneCore::ConfigItem.new(key: :use_cache,
+                                      env_name: "XCODEGEN_PROJECT",
+                                      description: "Used to prevent unnecessarily generating the project",
+                                      optional: true,
+                                      is_string: false),
+          FastlaneCore::ConfigItem.new(key: :cache_path,
+                                      env_name: "XCODEGEN_PROJECT",
+                                      description: "A custom path to use for your cache file",
                                       optional: true)
         ]
       end
