@@ -24,7 +24,8 @@ More Information on [_XcodeGen_](https://github.com/yonaskolb/XcodeGen)
   	project: "PATH/Project.xcodeproj",
   	quiet: true,
   	use_cache: true,
-  	cache_path: "~/.xcodegen/cache/MyProject"
+  	cache_path: "~/.xcodegen/cache/MyProject",
+  	project_root: "../"
   )
 ```
 

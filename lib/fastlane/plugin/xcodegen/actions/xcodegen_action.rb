@@ -20,6 +20,7 @@ module Fastlane
         cmd << "--quiet" if params[:quiet]
         cmd << "--use-cache" if params[:use_cache]
         cmd << "--cache-path #{params[:cache_path]}" if params[:cache_path]
+        cmd << "--project-root #{params[:project_root]}" if params[:project_root]
 
         Actions.sh(cmd.join(' '))
       end
@@ -62,6 +63,10 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :cache_path,
                                       env_name: "XCODEGEN_CACHE_PATH",
                                       description: "A custom path to use for your cache file",
+                                      optional: true),
+          FastlaneCore::ConfigItem.new(key: :project_root,
+                                      env_name: "XCODEGEN_PROJECT_ROOT",
+                                      description: "The path to the project root directory",
                                       optional: true)
         ]
       end
