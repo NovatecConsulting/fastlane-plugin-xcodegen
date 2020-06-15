@@ -22,6 +22,41 @@ describe Fastlane do
 
         expect(result).to eq("xcodegen --project /tmp/Project.xcodeproj")
       end
+      it "sets the quiet param" do
+        result = Fastlane::FastFile.new.parse("lane :test do
+            xcodegen(quiet: true)
+          end").runner.execute(:test)
+
+        expect(result).to eq("xcodegen --quiet")
+      end
+      it "sets the use-cache param" do
+        result = Fastlane::FastFile.new.parse("lane :test do
+            xcodegen(use_cache: true)
+          end").runner.execute(:test)
+
+        expect(result).to eq("xcodegen --use-cache")
+      end
+      it "sets the cache-path param" do
+        result = Fastlane::FastFile.new.parse("lane :test do
+            xcodegen(cache_path: '~/.xcodegen/cache/MyProject')
+          end").runner.execute(:test)
+
+        expect(result).to eq("xcodegen --cache-path ~/.xcodegen/cache/MyProject")
+      end
+      it "sets the project-root param" do
+        result = Fastlane::FastFile.new.parse("lane :test do
+            xcodegen(project_root: '../')
+          end").runner.execute(:test)
+
+        expect(result).to eq("xcodegen --project-root ../")
+      end
+      it "ignores the quiet and use-cache params if false" do
+        result = Fastlane::FastFile.new.parse("lane :test do
+            xcodegen(quiet: false, use_cache: false)
+          end").runner.execute(:test)
+
+        expect(result).to eq("xcodegen")
+      end
     end
   end
 end

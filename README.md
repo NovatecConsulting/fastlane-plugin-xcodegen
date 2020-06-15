@@ -21,7 +21,11 @@ More Information on [_XcodeGen_](https://github.com/yonaskolb/XcodeGen)
 ```ruby
   xcodegen(
   	spec: "PATH/project.yml",
-  	project: "PATH/Project.xcodeproj"
+  	project: "PATH/Project.xcodeproj",
+  	quiet: true,
+  	use_cache: true,
+  	cache_path: "~/.xcodegen/cache/MyProject",
+  	project_root: "../"
   )
 ```
 
