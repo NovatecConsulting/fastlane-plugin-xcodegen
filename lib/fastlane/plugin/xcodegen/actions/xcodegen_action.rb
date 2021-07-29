@@ -15,14 +15,14 @@ module Fastlane
         end)
 
         cmd = ["xcodegen"]
-        cmd << "--spec #{params[:spec]}" if params[:spec]
-        cmd << "--project #{params[:project]}" if params[:project]
+        cmd += ["--spec", File.expand_path(params[:spec])] if params[:spec]
+        cmd += ["--project", File.expand_path(params[:project])] if params[:project]
         cmd << "--quiet" if params[:quiet]
         cmd << "--use-cache" if params[:use_cache]
-        cmd << "--cache-path #{params[:cache_path]}" if params[:cache_path]
-        cmd << "--project-root #{params[:project_root]}" if params[:project_root]
+        cmd += ["--cache-path", File.expand_path(params[:cache_path])] if params[:cache_path]
+        cmd += ["--project-root", File.expand_path(params[:project_root])] if params[:project_root]
 
-        Actions.sh(cmd.join(' '))
+        Actions.sh(*cmd)
       end
 
       def self.description
