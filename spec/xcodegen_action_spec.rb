@@ -75,6 +75,15 @@ describe Fastlane do
             xcodegen
           end").runner.execute(:test)
       end
+      it "supports a custom executable" do
+        expect(Fastlane::Actions).to_not receive(:sh).with("which xcodegen", anything)
+        expect(Fastlane::Actions::BrewAction).to_not receive(:run)
+        expect(Fastlane::Actions).to receive(:sh).with("./bin/xcodegen", "--quiet")
+
+        Fastlane::FastFile.new.parse("lane :test do
+          xcodegen(executable: './bin/xcodegen', quiet: true)
+        end").runner.execute(:test)
+      end
     end
   end
 end

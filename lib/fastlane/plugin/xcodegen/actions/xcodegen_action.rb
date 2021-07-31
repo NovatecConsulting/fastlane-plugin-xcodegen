@@ -12,9 +12,9 @@ module Fastlane
 
           Actions::BrewAction.run(command: "tap yonaskolb/XcodeGen https://github.com/yonaskolb/XcodeGen.git")
           Actions::BrewAction.run(command: "install XcodeGen")
-        end)
+        end) unless params[:executable]
 
-        cmd = ["xcodegen"]
+        cmd = [params[:executable] || "xcodegen"]
         cmd += ["--spec", File.expand_path(params[:spec])] if params[:spec]
         cmd += ["--project", File.expand_path(params[:project])] if params[:project]
         cmd << "--quiet" if params[:quiet]
@@ -42,6 +42,10 @@ module Fastlane
 
       def self.available_options
         [
+          FastlaneCore::ConfigItem.new(key: :executable,
+                                       env_name: "XCODEGEN_EXECUTABLE",
+                                       description: "The path to the `xcodegen` executable",
+                                       optional: true),
           FastlaneCore::ConfigItem.new(key: :spec,
                                        env_name: "XCODEGEN_SPEC",
                                        description: "The path to the project spec file",
