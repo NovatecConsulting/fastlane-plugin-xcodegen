@@ -58,6 +58,23 @@ describe Fastlane do
 
         expect(result).to eq("xcodegen")
       end
+      it "attempts to install `xcodegen` using BrewAction if it doesn't exist" do
+        # Expect that `which xcodegen` will fail
+        expect(Fastlane::Actions).to receive(:sh).with("which xcodegen", hash_including(error_callback: anything)) { |command, params|
+          error_callback = params[:error_callback]
+          error_callback.call('xcodegen not found')
+        }
+
+        # Expect that the BrewAction is invoked as expected
+        expect(Fastlane::Actions::BrewAction).to receive(:run).twice
+
+        # And that the original command is then run as expected
+        expect(Fastlane::Actions).to receive(:sh).with("xcodegen")
+
+        Fastlane::FastFile.new.parse("lane :test do
+            xcodegen
+          end").runner.execute(:test)
+      end
     end
   end
 end
