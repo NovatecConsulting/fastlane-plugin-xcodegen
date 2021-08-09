@@ -1,6 +1,16 @@
 describe Fastlane do
   describe Fastlane::FastFile do
     describe "XcodeGen Integration" do
+      it "returns shell output" do
+        expect(Fastlane::Actions).to receive(:sh).with("which xcodegen", anything)
+        expect(Fastlane::Actions).to receive(:sh).with("xcodegen").and_return("Shell Output")
+
+        result = Fastlane::FastFile.new.parse("lane :test do
+          xcodegen
+        end").runner.execute(:test)
+
+        expect(result).to eq("Shell Output")
+      end
       it "sets no param" do
         result = Fastlane::FastFile.new.parse("lane :test do
             xcodegen()
