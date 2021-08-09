@@ -20,6 +20,7 @@ More Information on [_XcodeGen_](https://github.com/yonaskolb/XcodeGen)
 
 ```ruby
   xcodegen(
+	executable: "./bin/xcodegen",
   	spec: "PATH/project.yml",
   	project: "PATH/Project.xcodeproj",
   	quiet: true,
