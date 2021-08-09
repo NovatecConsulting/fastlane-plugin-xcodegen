@@ -40,6 +40,14 @@ module Fastlane
         ].join("\n")
       end
 
+      def self.return_type
+        :string
+      end
+
+      def self.return_value
+        "Raw shell output of `xcodegen` command."
+      end
+
       def self.available_options
         [
           FastlaneCore::ConfigItem.new(key: :executable,
